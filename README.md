@@ -1,20 +1,110 @@
-# Linux Shell in C
+ForkShell
 
-A lightweight Unix/Linux shell built in C using POSIX system calls. This project demonstrates core Operating System concepts such as process creation, command execution, process synchronization, and shell internals.
+A Unix-like command-line shell built in C using POSIX system calls. ForkShell demonstrates core Operating System concepts including process creation, command execution, inter-process communication, file descriptor manipulation, job management, and shell internals.
 
 ## Features
 
-* Execute Linux commands
-* Built-in commands:
+### Command Execution
 
-  * `cd`
-  * `pwd`
-  * `exit`
-* Command parsing and tokenization
-* Process creation using `fork()`
-* Program execution using `execvp()`
-* Parent-child synchronization using `waitpid()`
-* Modular and extensible design
+Execute standard Linux commands.
+
+```bash
+myshell> ls
+myshell> pwd
+myshell> mkdir test
+```
+
+### Built-in Commands
+
+```bash
+cd
+pwd
+history
+jobs
+exit
+```
+
+### Background Processes
+
+Run commands in the background.
+
+```bash
+myshell> sleep 10 &
+[Background PID: 12345]
+```
+
+### Input Redirection
+
+```bash
+myshell> sort < input.txt
+```
+
+### Output Redirection
+
+```bash
+myshell> ls > output.txt
+```
+
+### Pipes
+
+```bash
+myshell> ls | grep txt
+
+myshell> cat file.txt | sort
+```
+
+### Command History
+
+```bash
+myshell> history
+```
+
+### Job Management
+
+```bash
+myshell> jobs
+```
+
+---
+
+## Project Structure
+
+```text
+ForkShell/
+│
+├── README.md
+├── LICENSE
+├── Makefile
+│
+├── src/
+│   ├── main.c
+│   ├── shell.c
+│   ├── parser.c
+│   ├── executor.c
+│   ├── builtins.c
+│   ├── background.c
+│   ├── redirection.c
+│   ├── pipes.c
+│   ├── history.c
+│   └── jobs.c
+│
+├── include/
+│   ├── shell.h
+│   ├── parser.h
+│   ├── executor.h
+│   ├── builtins.h
+│   ├── background.h
+│   ├── redirection.h
+│   ├── pipes.h
+│   ├── history.h
+│   └── jobs.h
+│
+├── tests/
+├── docs/
+└── examples/
+```
+
+---
 
 ## Technologies Used
 
@@ -22,81 +112,100 @@ A lightweight Unix/Linux shell built in C using POSIX system calls. This project
 * Linux
 * POSIX System Calls
 * GCC
+* Make
 * Git & GitHub
+
+---
 
 ## System Calls Used
 
-### fork()
+| System Call | Purpose                     |
+| ----------- | --------------------------- |
+| fork()      | Create child process        |
+| execvp()    | Execute external commands   |
+| waitpid()   | Process synchronization     |
+| pipe()      | Inter-process communication |
+| dup2()      | Input/Output redirection    |
+| open()      | Open files                  |
+| close()     | Close files                 |
+| chdir()     | Change directory            |
+| getcwd()    | Print current directory     |
 
-Creates a child process from the parent process.
-
-### execvp()
-
-Executes external Linux commands.
-
-### waitpid()
-
-Waits for child process completion.
-
-### chdir()
-
-Changes the current working directory.
-
-### getcwd()
-
-Retrieves the current working directory.
+---
 
 ## Build
 
+Using Makefile:
+
 ```bash
-gcc src/*.c -Iinclude -o myshell
+make
 ```
+
+Or manually:
+
+```bash
+gcc src/*.c -Iinclude -o forkshell
+```
+
+---
 
 ## Run
 
 ```bash
-./myshell
+./forkshell
 ```
 
-## Usage
+---
 
-```bash
+## Example Session
+
+```text
 myshell> pwd
-/home/user
+/home/anup
 
-myshell> mkdir test
+myshell> sleep 10 &
+[Background PID: 12345]
 
-myshell> ls
+myshell> jobs
+[1] Running PID=12345 sleep
 
-myshell> cd test
+myshell> ls | grep txt
+notes.txt
 
-myshell> pwd
-/home/user/test
+myshell> history
 
 myshell> exit
 ```
 
+---
+
 ## Learning Outcomes
 
 * Operating System Fundamentals
-* Process Management
-* Linux System Calls
-* Command Execution
-* Shell Architecture
-* Parent-Child Process Communication
+* Process Creation & Management
+* Linux System Programming
+* Shell Design
+* Inter-Process Communication (IPC)
+* File Descriptor Manipulation
+* Job Control
+* Command Parsing
+
+---
 
 ## Future Improvements
 
-* Background Process Support (`&`)
-* Input/Output Redirection (`<`, `>`)
-* Pipes (`|`)
-* Command History
-* Job Control
-* Multi-Pipe Execution
+* Multiple Pipe Support
+* fg / bg Commands
+* Persistent History
+* Environment Variables
 * Auto Completion
+* GUI Terminal Frontend
+* POSIX Compliance Improvements
+
+---
 
 ## Author
 
-Anup
+**Anup**
 
-Built to explore Linux internals, system programming, and shell implementation using C.
+Built to explore Linux internals, process management, shell implementation, and systems programming using C.
