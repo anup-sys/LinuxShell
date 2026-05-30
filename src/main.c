@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <sys/wait.h>
 
 #include "parser.h"
 #include "executor.h"
@@ -15,6 +16,10 @@ int main()
 
     while (1)
     {
+        while (waitpid(-1, NULL, WNOHANG) > 0)
+        {
+        }
+
         printf("myshell> ");
         fflush(stdout);
 
