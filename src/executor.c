@@ -6,9 +6,19 @@
 #include "executor.h"
 #include "background.h"
 #include "redirection.h"
+#include "pipes.h"
+#include "jobs.h"
 
 void execute_command(char **args)
 {
+    /* Handle pipe commands first */
+    if (has_pipe(args))
+    {
+        execute_pipe(args);
+        return;
+    }
+
+    /* Handle background commands */
     int background = is_background_command(args);
 
     pid_t pid = fork();
@@ -21,7 +31,7 @@ void execute_command(char **args)
 
     if (pid == 0)
     {
-        /* Handle > and < before execvp */
+        /* Handle input/output redirection */
         handle_redirection(args);
 
         execvp(args[0], args);
@@ -34,6 +44,8 @@ void execute_command(char **args)
         if (background)
         {
             printf("[Background PID: %d]\n", pid);
+
+            add_job(pid, args[0]);
         }
         else
         {

@@ -1,0 +1,41 @@
+orange
+apple
+banana
+grape
+mango
+kiwi
+watermelon
+apple
+banana
+orange
+
+
+Test Commands
+sort < examples/sample_input.txt
+
+apple
+apple
+banana
+banana
+grape
+kiwi
+mango
+orange
+orange
+watermelon
+
+
+cat examples/sample_input.txt | sort
+
+cat examples/sample_input.txt | sort | uniq
+
+apple
+banana
+grape
+kiwi
+mango
+orange
+watermelon
+
+mkdir -p examples
+nano examples/sample_input.txt

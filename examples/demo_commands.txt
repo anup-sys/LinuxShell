@@ -1,0 +1,65 @@
+# ForkShell Demo Commands
+
+# Basic Commands
+
+pwd
+
+ls
+
+ls -l
+
+mkdir test
+
+cd test
+
+pwd
+
+cd ..
+
+# History
+
+history
+
+# Background Processes
+
+sleep 10 &
+
+sleep 20 &
+
+jobs
+
+# Output Redirection
+
+ls > output.txt
+
+pwd > path.txt
+
+# Input Redirection
+
+sort < input.txt
+
+cat < input.txt
+
+# Pipe Commands
+
+ls | grep txt
+
+cat input.txt | sort
+
+ps aux | grep bash
+
+# Combined Examples
+
+cat input.txt | sort > sorted.txt
+
+# Multiple Background Jobs
+
+sleep 100 &
+
+sleep 200 &
+
+jobs
+
+# Exit Shell
+
+exit
